@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+    <section id="about" class="flex-stretch fullscreen">
+        <div class="content-column">
+            <h1>What is Voiceep</h1>
+            <p>Voiceep is a web service built for people who run blogs and news websites that allows them to create audio content based on the texts and articles that they are already writing. Think of it as a way to reach a completely new market and demographic, without having to do much of anything.</p>
+            <p>The most basic thing that Voiceep provides is an audio player that is automatically created and added to your existing website, allowing visitors to listen to your articles instead of having to read them. The voiceover can either be created automatically using Amazon's text-to-speech technology (also known as Polly), or it can be manually uploaded or recorded by the website owner within the Voiceep dashboard.</p>
+            <p>It is also in the plans to add the possibility of having professional voice-actors hired automatically to narrate your articles, without you having to do anything, although this feature is not currently available.</p>
+            <p>Additionnally, it will also be possible (in the near future) to automatically create and distribute a podcast based on the voiceovers of your texts and articles.</p>
+            <p>Oh, by the way: the person you see in this picture is me, Émile. I am the developer behind Voiceep. <i class="text-gray">Hello!</i></p>
+            <p>If you have any questions or feedback about the project, you can contact me via email at <a href="mailto:info@voiceep.com" target="_blank">info@voiceep.com</a>, or via DM on Instagram at <a href="https://www.instagram.com/veganguywhocodes/" target="_blank">@veganguywhocodes</a>.</p>
+        </div>
+        <div class="image-column purple-filter" style="background-image: url('{{ asset('assets/media/emile-working-on-voiceep-black-and-white.jpg') }}');">
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112418748-5"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-112418748-5');
+        </script>
+
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}{{ block('title') ? ' - Voiceep' : 'Voiceep' }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="You're already writing articles, why not use them to get into the audio game?">
+        <meta property="og:image" content="{{ asset('assets/media/og-image-audio-matters.jpg') }}">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500|Inconsolata:400" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+        <link href="{{ asset('assets/fontawesome/css/all.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/base.css') }}" rel="stylesheet" />
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#a43adb">
+        <meta name="msapplication-TileColor" content="#a43adb">
+        <meta name="theme-color" content="#6f45c3">
+        {% block stylesheets %}{% endblock %}
+
+        <!-- Hotjar Tracking Code for https://voiceep.com -->
+        <script>
+            (function(h,o,t,j,a,r){
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:1043959,hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        </script>
+    </head>
+    <body class="{% block body_class %}{% endblock %} {{ app.request.get('_route') | replace({'_': '-'}) }}">
+        <div id="wrapper">
+            <header>
+                <div class="container flex-space-between-center never-break">
+                    <a href="{{ path('home') }}" class="logo">
+                        <img src="{{ asset('assets/media/voiceep-logo.svg') }}" alt="Voiceep logo">
+                    </a>
+                    <a href="#" class="menu-toggle">
+                        <i class="far fa-bars"></i>
+                    </a>
+                    <nav>
+                        <!--a href="#">How it works</a-->
+                        <!--a href="#">Pricing</a-->
+                        <a href="{{ path('about') }}">About</a>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href="{{ path('signout') }}">Sign out</a>
+                            <a href="{{ path('app_dashboard') }}" class="featured">Your dashboard</a>
+                        {% else %}
+                            <a href="{{ path('signin') }}">Log in</a>
+                            <a href="javascript: UI.showModalFromUrl('{{ path('signup') }}', 'small signup')" class="featured">Get started</a>
+                        {% endif %}
+                    </nav>
+                </div>
+            </header>
+
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+            {% block body %}{% endblock %}
+
+            <footer>
+                <div class="container text-center">
+                    <a href="{{ path('terms_of_use') }}">Terms of use</a>
+                    <span class="spacer"></span>
+                    <a href="{{ path('privacy_policy') }}">Privacy policy</a>
+                </div>
+            </footer>
+        </div>
+
+        <script src="{{ asset('assets/js/base.js') }}"></script>
+        <script src="{{ asset('assets/js/utils/ui.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+
+        <!-- Polyfill for CSS variables -->
+        <script src="https://cdn.eckinox.net/EmilePerron/css-vars-polyfill/polyfill.js"></script>
+    </body>
+</html>

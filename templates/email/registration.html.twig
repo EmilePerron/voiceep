@@ -1,0 +1,70 @@
+{% extends 'email/base.html.twig' %}
+
+{% set title = "Welcome to Voiceep!" %}
+
+{# set banner_image = absolute_url(asset('email_assets/welcome/banner.jpg')) #}
+{# set banner_link = url('home') #}
+{# set banner_title = "Welcome to Voiceep!" #}
+
+{% block content %}
+	<h1>Welcome to Voiceep!</h1>
+	<h2>You are about to take your website's content to the next level.</h2>
+	<hr>
+	<h3>What's next?</h3>
+
+	<div class="row" style="margin-bottom: 30px;">
+		<div class="clearfix"></div>
+		<div class="col-3 text-center">
+            <a href="{{ url('app_embed') }}" target="_blank">
+    			<img src="{{ absolute_url(asset('assets/media/email/icons/code.png')) }}" alt="Code icon">
+            </a>
+		</div>
+		<div class="col-9 text-left icon-text-padded mobile-text-center">
+			<p><a href="{{ url('app_embed') }}" target="_blank" class="black-link" style="font-size: 20px; font-weight: 500;">Add the embed code</a></p>
+			<p>You can get started in just a few minutes by creating your first project and inserting the Voiceep embed code in your website's pages. You can see your embed code and get more information about how you can customize it on the <a href="{{ url('app_embed') }}" target="_blank">Embed code</a> page.</p>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="row" style="margin-bottom: 30px;">
+		<div class="clearfix"></div>
+		<div class="col-3 text-center float-right">
+            <a href="{{ url('app_dashboard') }}" target="_blank">
+			    <img src="{{ absolute_url(asset('assets/media/email/icons/volume.png')) }}" alt="Volume icon">
+            </a>
+		</div>
+		<div class="col-9 text-right icon-text-padded mobile-text-center">
+			<p><a href="{{ url('app_dashboard') }}" target="_blank" class="black-link" style="font-size: 20px; font-weight: 500;">Enjoy: you've done it!</a></p>
+			<p>Congratulations: you just stepped into the audio game, with very little effort! If you want to improve your articles's voiceovers or the way you use Voiceep, we recommend you go and explore <a href="{{ url('app_dashboard') }}" target="_blank">the management interface</a>. If you would like to follow the development of new features, you can follow <a href="https://www.instagram.com/veganguywhocodes/" target="_blank">@veganguywhocodes</a> (Voiceep's developer) on Instagram.</p>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="row" style="margin-bottom: 30px;">
+		<div class="clearfix"></div>
+		<div class="col-3 text-center">
+            <a href="mailto:info@voiceep.com" target="_blank">
+			    <img src="{{ absolute_url(asset('assets/media/email/icons/comments-dots.png')) }}" alt="Discussion icon">
+            </a>
+		</div>
+		<div class="col-9 text-left icon-text-padded mobile-text-center">
+			<p><a href="mailto:info@voiceep.com" class="black-link" style="font-size: 20px; font-weight: 500;">Let's chat!</a></p>
+			<p>If you are experiencing any issues with the service, if you are having difficulty setting things up, or if you want to give us feedback about the service or the website, you can contact us at any time at <a href="mailto:info@voiceep.com">info@voiceep.com</a>.</p>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="row" style="margin-bottom: 30px;">
+		<div class="clearfix"></div>
+		<div class="col-3 text-center float-right">
+            <a href="https://www.facebook.com/Voiceep-2255950311304398" target="_blank">
+			    <img src="{{ absolute_url(asset('assets/media/email/icons/user-friends.png')) }}" alt="User friends icon">
+            </a>
+		</div>
+		<div class="col-9 text-right icon-text-padded mobile-text-center">
+			<p><a href="https://www.facebook.com/Voiceep-2255950311304398" target="_blank" class="black-link" style="font-size: 20px; font-weight: 500;">Help us grow!</a></p>
+			<p>Voiceep is a new service, and we need more people who are interested in using the service in order to grow and improve it. If you would like to help us with that, we would really appreciate if you could share our website with your friends and colleagues, or simply talk about it. Thank you!</p>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+{% endblock %}

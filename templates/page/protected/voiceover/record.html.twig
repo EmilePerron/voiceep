@@ -1,0 +1,86 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Record a voiceover{% endblock %}
+
+{% block app_body %}
+    <div class="card">
+        <div class="form-wrapper">
+            {% form_theme form 'form/form_errors.html.twig' %}
+            {{ form_start(form) }}
+                <div class="field full errors">{{ form_errors(form) | trim }}</div>
+
+                <div class="field full entry">
+                    {{ form_errors(form.entry) }}
+                    {{ form_label(form.entry) }}
+                    {{ form_widget(form.entry) }}
+                    {{ form_help(form.entry) }}
+                </div>
+
+                <div class="field full language">
+                    {{ form_errors(form.languageCode) }}
+                    {{ form_label(form.languageCode) }}
+                    {{ form_widget(form.languageCode) }}
+                    {{ form_help(form.languageCode) }}
+                </div>
+
+                <div class="field full file hide">
+                    {{ form_errors(form.file) }}
+                    {{ form_label(form.file) }}
+                    {{ form_widget(form.file) }}
+                    {{ form_help(form.file) }}
+                </div>
+
+                <div class="field full recording">
+                    <label class="required">Recording</label>
+                    <div class="recording-playback"></div>
+                    <div class="recording-wrapper">
+                        <div class="buttons">
+                            <button class="icon record"><i class="fas fa-circle"></i></button>
+                            <button class="icon stop hide"><i class="fas fa-stop"></i></button>
+                        </div>
+                        <div class="time">0:00</div>
+                    </div>
+                </div>
+
+                <div class="field full">
+                    {{ form_widget(form.save) }}
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <script src="{{ asset('assets/js/lib/WebAudioRecorder/WebAudioRecorder.min.js') }}"></script>
+    <script src="{{ asset('assets/js/record.js') }}"></script>
+
+    <script>
+        $(function(){
+            $("button[type='submit']").click(function(e){
+                e.preventDefault();
+
+                if (currentRecordingBlob) {
+                    $(".field.errors").empty();
+                    $(".form-wrapper").attr("processing-message", "The voiceover is being uploaded, please wait...");
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('app_voiceover_record_upload_blob') }}',
+                        data: currentRecordingBlob,
+                        contentType: 'audio/mpeg',
+                        processData: false,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (typeof response.url != "undefined") {
+                                $(".field.file input").val(response.url);
+                                $(".form-wrapper form").submit();
+                            } else if (typeof response.error != "undefined") {
+                                $(".form-wrapper").removeAttr("processing-message");
+                                $(".field.errors").html("<div class='msg error'>" + response.error + "</div>");
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

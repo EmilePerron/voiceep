@@ -1,0 +1,9 @@
+{% form_theme form _self %}
+
+{% block form_help %}
+    {% spaceless %}
+        {% if help is defined %}
+            <div class="help-text">{{ help | raw }}</div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_help %}

@@ -1,0 +1,44 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block app_body %}
+    <div class="msg warning" style="margin-bottom: 15px;">The Voiceep service is currently in the alpha stage, and is therefore incomplete and potentially unstable.</div>
+    <div class="flex-stretch spaced">
+        <div class="column">
+            <div class="card">
+                <h2>Get started</h2>
+                <p>Below is your basic embed code. For more information about how to use it or how it can be customized, visit the <a href="{{ path('app_embed') }}">Embed code</a> page.</p>
+                <pre>
+                    {{ ("<script src='" ~ Embed.getUrl(project) ~ "'></script>
+                        <script>Voiceep.init('" ~ (project.defaultContentSelector ?: '#content') ~ "');</script>") | escape | nl2br }}
+                </pre>
+            </div>
+
+            <diuv class="card">
+                <h2>API key</h2>
+                <p>Running a Wordpress website? Here's the API key you will need to setup the Voiceep plugin on your site. <strong>Make sure you keep this key secret!</strong></p>
+                <span class="inline-code">{{ project.apiKey }}</span>
+            </diuv>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h2>Alpha version</h2>
+                <p>Please be aware that Voiceep is currently in its alpha version, which means that some features are unavailable and that the available features might not be 100% stable.</p>
+                <p>If you experience any major issue, require support or would like to give feedback, you can send an email to <a href="mailto:contact@emileperron.com" target="_blank">contact@emileperron.com</a> or DM <a href="https://www.instagram.com/veganguywhocodes/" target="_blank">@veganguywhocodes</a> on Instagram.</p>
+            </div>
+
+            <div class="card development-log">
+                <h2>Upcoming features</h2>
+                <p>Here is a list of features that are planned to be developed and released in the near future. Features that are currently in development are in mangeta.</p>
+                <ul class="fontawesome-bullets">
+                    <li><p><i class="fab fa-wordpress background-purple"></i>Wordpress plugin for effortless integration</p></li>
+                    <li><p><i class="fas fa-palette background-gray"></i>Customizable player styles</p></li>
+                    <li><p><i class="fas fa-chart-pie background-gray"></i>Listening statistics and analytics</p></li>
+                    <li><p><i class="fas fa-podcast background-gray"></i>Automatic podcast generation</p></li>
+                    <li><p><i class="fas fa-podcast background-gray"></i>Automatic podcast distribution</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

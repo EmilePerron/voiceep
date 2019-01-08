@@ -1,0 +1,9 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'form/fields.html.twig'
+    globals:
+        Embed: "@helper.embed"
+        Polly: "@helper.aws.polly"

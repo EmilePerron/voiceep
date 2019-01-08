@@ -1,0 +1,163 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Embedding instructions{% endblock %}
+
+{% block app_body %}
+    <div class="card" id="getting-started">
+        <h2>Getting started</h2>
+        <p>To get started using Voiceep, copy the following embed code snippet anywhere within the <span class="inline-code">{{ "<head>" | escape }}</span> or <span class="inline-code">{{ "<body>" | escape }}</span> tag of your page.</p>
+        <pre>
+            {{ ("<script src='" ~ Embed.getUrl(project) ~ "'></script>
+                <script>Voiceep.init('" ~ (project.defaultContentSelector ?: '#content') ~ "');</script>") | escape | nl2br }}
+        </pre>
+        {% if not project.defaultContentSelector %}
+            <p>Make sure to replace the <span class="inline-code">#content</span> selector with a selector matching your article's content wrapper.</p>
+        {% endif %}
+    </div>
+
+    <div class="card" id="documentation">
+        <h2>More options</h2>
+        <p>When initializing Voiceep with the embed script, you can supply many options in order to change the way the service works, from the way the player looks and reacts to the type and language of audio that we will provide, with many other things in between.</p>
+        <p>To supply additionnal options, replace the selector passed to the <span class="inline-code">Voiceep.init()</span> method with an object containing the desired options.</p>
+        <p>Here's an example:</p>
+        <pre>
+            {{ ("<script>
+                \tVoiceep.init({
+                    \t\tcontent_selector: '" ~ (project.defaultContentSelector ?: '#content') ~ "',
+                    \t\tplayer_selector: '#sidebar',
+                    \t\tlang: 'en-US'
+                \t});
+            </script>") | replace({ '\t': '   ' }) | escape | nl2br }}
+        </pre>
+        <p>Below is an in depth documentation of which options can be provided and what they do.</p>
+
+        <hr>
+
+        <div class="documentation-entry" id="options:content_selector">
+            <h3>content_selector</h3>
+            <span class="text-purple type required">string</span>
+
+            <p>The <span class="inline-code">content_selector</span> option defines the selector of the element that contains the text of your article. This is what is used to create the audio recording.</p>
+            <p>When using options, the <span class="inline-code">content_selector</span> option is required if the <span class="inline-code">text</span> option is not defined and if the <span class="inline-code">type</span> option is not defined or not set to <span class="inline-code">manual</span>.</p>
+        </div>
+
+        <hr>
+
+        <div class="documentation-entry" id="options:url">
+            <h3>url</h3>
+            <span class="text-purple type">string</span>
+
+            <p>The <span class="inline-code">url</span> option is used as an unique identifier for your text or article. When a different text is provided for an existing identifier, a new audio file is automatically generated. It is therefore important to make sure you are not using the same identifier for different texts or articles.</p>
+            <p>If the <span class="inline-code">url</span> option is not defined, the URL of the current page will be detected automatically and used. The current URL is detected by checking the <span class="inline-code">{{ "<link rel='canonical'>" | escape }}</span> tag, and by checking the <span class="inline-code">window.location</span> if no canonical URL is defined.</p>
+
+            <p><strong>If your posts URL depends on query parameters</strong> (ex.: <span class="inline-code">https://www.onlineblog.com/post?id=1045</span>), you should explicitly specify the URL, as the embed script is likely to strip off the query strings in its automated URL detection process.</p>
+        </div>
+
+        <hr>
+
+        <div class="documentation-entry" id="options:player_selector">
+            <h3>player_selector</h3>
+            <span class="text-purple type">string</span>
+
+            <p>By default, the Voiceep player is appended to the content element. The <span class="inline-code">player_selector</span> parameter option you to define in which element the player will be appended.</p>
+            <p>When using options, the <span class="inline-code">player_selector</span> option is required if the <span class="inline-code">text</span> option is defined and the <span class="inline-code">content_selector</span> option is not.</p>
+        </div>
+
+        <hr>
+
+        <div class="documentation-entry" id="options:text">
+            <h3>text</h3>
+            <span class="text-purple type">string</span>
+
+            <p>The <span class="inline-code">text</span> option can be used to provide the text directly instead of letting the script fetch the text from the element specified using the <span class="inline-code">content_selector</span> option. This can be useful if, for example, you want to display the player in a page where the text isn't displayed, such as an blog articles listing page.</p>
+            <p>When defining the <span class="inline-code">text</span> option instead of the <span class="inline-code">content_selector</span> option, the <span class="inline-code">player_selector</span> option is required.</p>
+        </div>
+
+        <hr>
+
+        <div class="documentation-entry" id="options:text">
+            <h3>type</h3>
+            <span class="text-purple type">string</span>
+
+            <p>The <span class="inline-code">type</span> option can be used to specify which type of voiceover should be fetched.</p>
+            <p>Here are all of the currently allowed values for this options</p>
+
+            <table>
+                <tr>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <th>polly</th>
+                    <td>
+                        When using the <strong>polly</strong> type, the voiceover will be automatically synthesized by a computer using Amazon's Polly text-to-speech technology.<br>
+                        This is the default value.
+                    </td>
+                </tr>
+                <tr>
+                    <th>manual</th>
+                    <td>
+                        When using the <strong>manual</strong> type, an entry and a voiceover will automatically be created in your account, but you will have to manually upload an audio file for the voiceover.
+                    </td>
+                </tr>
+                <tr>
+                    <th>human</th>
+                    <td>
+                        When using the <strong>human</strong> type, a regular human being will record the voiceover for you, based on the provided text. However, that person is not guaranteed to be a professionnal voice-actor, and we therefore cannot guarantee the quality of the voiceover.<br>
+                        <span class="text-red">This is a premium option that is not available yet.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>professional</th>
+                    <td>
+                        When using the <strong>professional</strong> type, a professional voice-actor will record the voiceover for you, based on the provided text.<br>
+                        <span class="text-red">This is a premium option that is not available yet.</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+
+        <div class="documentation-entry" id="options:lang">
+            <h3>lang</h3>
+            <span class="text-purple type">string</span>
+
+            <p>By default, the language of the text is detected from the <span class="inline-code">lang</span> or <span class="inline-code">data-lang</span> attribute on the <span class="inline-code">html</span> element of your page, or from your project's default language (which can be changed in <a href="{{ path('app_project_edit') }}">Project settings</a>) if none is defined on the <span class="inline-code">html</span> element.</p>
+
+            <p>The <span class="inline-code">lang</span> option allows you to specify in which language your text is written. The format for this format is as such: <span class="inline-code">en-US</span>.</p>
+
+            <p>Here are all of the currently accepted languages:</p>
+
+            <table>
+                <tr>
+                    <th>Language</th>
+                    <th>Allowed language codes</th>
+                </tr>
+                {% for name, languageCodes in Polly.getAvailableLanguageCodes(true) %}
+                    <tr>
+                        <th>{{ name }}</th>
+                        <td>
+                            <ul>
+                                {% for languageCode in languageCodes %}
+                                    <li>{{ languageCode }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <hr>
+
+        <div class="documentation-entry" id="options:text_to_speech_fallback">
+            <h3>text_to_speech_fallback</h3>
+            <span class="text-purple type">boolean</span>
+
+            <p>If you are using a voiceover <span class="inline-code">type</span> other than <span class="inline-code">polly</span>, setting this option to <span class="inline-code">true</span> will change the behavior of the player so that it loads a text-to-speech version of the article if a voiceover of the requested type is not available.</p>
+
+            <p>By default, this option is at <span class="inline-code">false</span>, meaning that the player is removed from the page when a voiceover of the requested type cannot be loaded.</p>
+        </div>
+    </div>
+{% endblock %}

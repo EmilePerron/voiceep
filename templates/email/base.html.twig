@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<title>{{ title is defined ? title : 'Email title' }}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			* { box-sizing: border-box; }
+			a { color: #7642ca !important; text-decoration: none; }
+			a:hover { color: #333 !important; }
+			hr { width: 100%; margin: 30px auto; border: none; border-top: 1px solid #f5f5f5; }
+			p { margin: auto; font-weight: 300; }
+			img { max-width: 100%; height: auto; }
+			h1, .h1 { color: #333; margin: 0; font-size: 32px; font-weight: 600; line-height: 1.25em; text-align: center; }
+			h2, .h2 { color: #333; margin: 0; margin-top: 10px; font-size: 20px; font-weight: 300; line-height: 1.35em; color: #565656; text-align: center; }
+			h3, .h3 { color: #333; font-size: 22px; font-weight: 300; line-height: 1.5em; text-align: center; }
+			.small-heading { font-size: 1.1em; line-height: 1.5em; font-weight: 600; }
+
+			.text-left { text-align: left; }
+			.text-center { text-align: center; }
+			.text-right { text-align: right; }
+
+			.small-text { font-size: .75em; font-weight: 400; line-height: 1.1em; }
+			.gray-text { color: #999 !important; }
+
+			.small-centered-image { display: block; width: auto; max-width: 128px; height: auto; margin: 15px auto; }
+
+			.padded { padding: 30px; }
+			.lightly-padded { padding: 15px; }
+			.icon-text-padded { padding: 10px 30px; }
+
+			.black-link { color: #333 !important; }
+			.black-link:hover { color: #2fa2c6 !important; }
+
+			body { padding: 0; margin: 0; font-family: Ubuntu, Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5em; color: #333; }
+			.page-wrapper { width: 100%; padding: 120px 30px; background-color: #edeff1; }
+			.header { width: 600px; max-width: 90%; margin: auto; margin-bottom: 5px; }
+			.main-container { width: 600px; max-width: 90%; margin: auto; background-color: white; border-radius: 2px; }
+			.banner { width: 100%; }
+			.content { width: 100%; padding: 30px; }
+			.main-text { margin-bottom: 15px; font-size: 16px; line-height: 24px; }
+			.footer { width: 600px; max-width: 90%; margin: auto; margin-top: 15px; }
+			.footer-text { font-size: 10px; line-height: 1.5em; color: #A6AAAD; text-align: center; }
+			.footer-text-additional { margin-top: 15px; }
+
+			.row { display: block; width: 100%; margin: auto; padding: 0; position: relative; box-sizing: border-box; }
+			.clearfix { display: block; clear: both; }
+			.col-1,
+			.col-2,
+			.col-3,
+			.col-4,
+			.col-5,
+			.col-6,
+			.col-7,
+			.col-8,
+			.col-9,
+			.col-10,
+			.col-11,
+			.col-12 { display: block; margin: auto; box-sizing: border-box; width: 100%; float: left; position: relative; min-height: 1px; }
+			.col-1 { width: 8.33333333%; width: calc(100% * (1 / 12)); }
+			.col-2 { width: 16.66666666%; width: calc(100% * (2 / 12)); }
+			.col-3 { width: 25%; }
+			.col-4 { width: 33.33333333%; width: calc(100% * (4 / 12)); }
+			.col-5 { width: 41.66666666%; width: calc(100% * (5 / 12)); }
+			.col-6 { width: 50%; }
+			.col-7 { width: 58.33333333%; width: calc(100% * (7 / 12)); }
+			.col-8 { width: 66.66666666%; width: calc(100% * (8 / 12)); }
+			.col-9 { width: 75%; }
+			.col-10 { width: 83.33333333%; width: calc(100% * (10 / 12)); }
+			.col-11 { width: 91.66666666%; width: calc(100% * (11 / 12)); }
+			.col-12 { width: 100%;  }
+
+			.float-right { float: right; }
+
+
+			@media (max-width: 520px) {
+				.page-wrapper { padding: 15px; }
+				.header { width: 100%; max-width: 100%; }
+				.main-container { width: 100%; max-width: 100%; }
+				.footer { width: 100%; max-width: 100%; }
+				.footer-text { font-size: 8px; line-height: 1.5em; }
+				.content img { max-width: 50%; margin: auto; }
+
+				.padded { padding: 15px; }
+				.ligthly-padded { padding: 5px; }
+				.icon-text-padded { padding: 15px; }
+
+				.col-1,
+				.col-2,
+				.col-3,
+				.col-4,
+				.col-5,
+				.col-6,
+				.col-7,
+				.col-8,
+				.col-9,
+				.col-10,
+				.col-11,
+				.col-12 { width: 100%; }
+
+				.mobile-text-center { text-align: center; }
+			}
+		</style>
+
+		{% block head_additional %}{% endblock %}
+	</head>
+	<body>
+		<div class="page-wrapper">
+			<!-- Header starts -->
+			<div class="header">
+				<a href="{{ url('home') }}" target="_blank" title="Voiceep">
+					<img src="{{ absolute_url(asset('assets/media/email/voiceep-header-logo.png')) }}" alt="Voiceep" style="width: auto; max-width: 100%; height: auto; max-height: 20px;">
+				</a>
+			</div>
+			<!-- Header ends -->
+			<!-- Main container starts -->
+			<div class="main-container">
+				{% if banner_image is defined %}
+					<!-- Banner starts -->
+					<div class="banner">
+						<!-- Banner image starts -->
+						{% if banner_link is defined %}
+							<a href="{{ banner_link }}" target="_blank" title="{{ banner_title is defined ? banner_title : '' }}">
+						{% endif %}
+						<img style="width: 100%; height: auto;" src="{{ banner_image }}" alt="{{ banner_title is defined ? banner_title : 'Header visual' }}">
+						{% if banner_link is defined %}
+							</a>
+						{% endif %}
+						<!-- Banner image ends -->
+					</div>
+					<!-- Banner ends -->
+				{% endif %}
+
+				<!-- Email content starts -->
+				<div class="content">
+					{% block content %}{% endblock %}
+				</div>
+				<!-- Email content ends -->
+			</div>
+			<!-- Main container ends -->
+
+			<!-- Footer starts -->
+			<div class="footer">
+				<p class="footer-text">
+					© Voiceep, <a href="https://www.google.com/maps?q=650+rue+Harvey+O.,+Alma,+QC,+G8B+1P2" target="_blank">650 rue Harvey O., Alma, QC, G8B 1P2</a><br>
+					If you do not wish to receive such emails in the future you can opt-out by clicking <a href="{{ url('app_account_settings') }}" target="_blank" style="color: #2fa2c6; text-decoration: none;">here</a>.
+				</p>
+				<div class="footer-text footer-text-additional">
+					{% block footer_content %}{% endblock %}
+				</div>
+			</div>
+			<!-- Footer ends -->
+		</div>
+	</body>
+</html>

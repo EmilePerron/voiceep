@@ -1,0 +1,13 @@
+{% block text_array_widget %}
+    {% spaceless %}
+        <div class="text-array-inputs-wrapper">
+            <input type="hidden" name="{{ form.vars.full_name }}" value="{{ form.vars.value | json_encode() }}">
+            <div class="text-array-inputs">
+                {% for value in form.vars.value %}
+                    <input type="text" value="{{ value }}" placeholder="{{ 'placeholder' in form.vars.attr|keys  ? form.vars.attr.placeholder : '' }}">
+                {% endfor %}
+                <input type="text" placeholder="{{ 'placeholder' in form.vars.attr|keys  ? form.vars.attr.placeholder : '' }}">
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

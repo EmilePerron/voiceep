@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body_class %}app{% endblock %}
+
+{% block body %}
+    <div id="app-wrapper">
+        <div id="sidebar">
+            <a href="#" class="sidebar-toggle">
+                <i class="far fa-times"></i>
+            </a>
+            <div class="project-switcher dropdown">
+                <div class="toggle">
+                    {% if app.session.get('current_project_id') or app.user.projects | length %}
+                        {% for project in app.user.projects %}
+                            {% if app.session.get('current_project_id') == project.id or not app.session.get('current_project_id') %}
+                                {{ app.session.set('current_project_id', project.id) }}
+                                {{ project.title }}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        No projects
+                    {% endif %}
+                </div>
+                <div class="options">
+                    {% for project in app.user.projects %}
+                        <a href="{{ path('app_dashboard', { 'project_id': project.id }) }}" class="option">{{ project.title }}</a>
+                    {% endfor %}
+                    <a href="{{ path('app_project_create') }}" class="option create" data-value=""><i class="fas fa-plus"></i> Create a new project</a>
+                </div>
+            </div>
+            <nav>
+                {# app_statistics: { label: "Statistics", icon: "fa-chart-pie" }, #}
+                {% set sidebarNavLinks = {  app_dashboard: { label: "Dashboard", icon: "fa-tachometer" },
+                                            app_embed: { label: "Embed code", icon: "fa-code" },
+                                            app_entry_listing: { label: "Entries", icon: "fa-th-list" },
+                                            app_voiceover_listing: { label: "Voiceovers", icon: "fa-microphone" },
+                                            app_project_edit: { label: "Project settings", icon: "fa-cog" } } %}
+                {% for route, data in sidebarNavLinks %}
+                    <a href="{{ path(route) }}" class="{{ route == app.request.get('_route') ? 'current' : '' }}">
+                        <i class="fal {{ data.icon }}"></i>
+                        {{ data.label }}
+                    </a>
+                {% endfor %}
+            </nav>
+            <nav class="bottom-links">
+                {# app_support: { label: "Support / feedback", icon: "fa-question-circle" } #}
+                {% set sidebarBottomLinks = {   app_account_settings: { label: "Account settings", icon: "fa-user-cog" } } %}
+                {% for route, data in sidebarBottomLinks %}
+                    <a href="{{ path(route) }}" class="{{ route == app.request.get('_route') ? 'current' : '' }}">
+                        <i class="fal {{ data.icon }}"></i>
+                        {{ data.label }}
+                    </a>
+                {% endfor %}
+                <a href="mailto:info@voiceep.com" target="_blank">
+                    <i class="fal fa-question-circle"></i>
+                    Support / feedback
+                </a>
+            </nav>
+        </div>
+        <div id="app">
+            <div id="app-header">
+                <div class="title">{{ block('title') }}</div>
+                <div class="actions">
+                    {% block actions %}{% endblock %}
+                    <div class="search">
+                        <input type="text" name="search" placeholder="Search" value="{{ app.request.query.get('q') ?: '' }}">
+                        <a href="#" class="button icon gray"><i class="fas fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div id="app-content">
+                {% block app_body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+{% endblock %}

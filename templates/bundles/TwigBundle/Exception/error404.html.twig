@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error 404{% endblock %}
+
+{% block body %}
+    <section id="error">
+        <div class="container text-center">
+            <h1 class="text-white">
+                <div class="bigger">😱 404 😱</div>
+                Page not found
+            </h1>
+            <div class="page-subtitle">
+                Either you messed up, or we did. 🤷‍♂️<br>
+                Apologies if it's the latter! Here, let us help:
+            </div>
+            <div>
+                <a href="{{ path('home') }}" class="button large white">
+                    <i class="fas fa-home"></i>
+                    Return to the homepage
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Detect your content's selector{% endblock %}
+
+{% block app_body %}
+    <div class="card">
+        <div class="msg info">In order to make the integration as easy as possible for you, please fill this form. It will allow us to detect where your articles content is displayed on your pages.</div>
+        <div class="form-wrapper">
+            {% if success %}
+                <div class="msg success">The selector has been saved as the default for this project.</div>
+            {% endif %}
+
+            {% form_theme form 'form/form_errors.html.twig' %}
+            {{ form_start(form) }}
+                <div class="field full errors">{{ form_errors(form) }}</div>
+
+                <div class="field full">
+                    {{ form_errors(form.url) }}
+                    {{ form_label(form.url) }}
+                    {{ form_widget(form.url) }}
+                    {{ form_help(form.url) }}
+                </div>
+
+                <div class="field full">
+                    {{ form_errors(form.content) }}
+                    {{ form_label(form.content) }}
+                    {{ form_widget(form.content) }}
+                    {{ form_help(form.content) }}
+                </div>
+
+                <div class="field full">
+                    {{ form_widget(form.save) }}
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

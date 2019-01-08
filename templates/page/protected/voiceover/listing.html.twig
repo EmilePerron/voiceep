@@ -1,0 +1,34 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Voiceovers{% endblock %}
+
+{% block actions %}
+    <a href="{{ path('app_voiceover_record') }}" class="button icon record"><i class="fas fa-circle"></i></a>
+    <a href="{{ path('app_voiceover_create') }}" class="button icon"><i class="fas fa-plus"></i></a>
+{% endblock %}
+
+{% block app_body %}
+    {% spaceless %}
+        <div class="listing voiceovers">
+            {% for entry in project.entries %}
+                {% for voiceover in entry.voiceovers %}
+                    <div class="card voiceover flex-space-between-center spaced" data-search="url:{{ entry.url | escape }} status:{{ voiceover.status }}">
+                        <div class="url">
+                            {{ voiceover.entry.title ? (voiceover.entry.title | escape) : (voiceover.entry.url | escape) }}
+                            {% if voiceover.entry.title %}
+                                <div><a href="//{{ voiceover.entry.url | escape }}" target="_blank" class="text-gray smaller">{{ voiceover.entry.url | escape }}</a></div>
+                            {% endif %}
+                        </div>
+                        <div class="type">{{ voiceover.typeName }}</div>
+                        <div class="status {{ voiceover.status | lower }}">{{ voiceover.status | capitalize }}</div>
+                        <div class="date modified-date">{{ voiceover.modifiedDate | date("d/m/Y g:i A") }}</div>
+                        <div class="actions text-right">
+                            <a href="{{ path('app_voiceover_edit', { 'voiceover_id': voiceover.id }) }}" class="button icon"><i class="fas fa-cogs"></i></a>
+                            <a href="{{ path('app_voiceover_delete', { 'voiceover_id': voiceover.id }) }}" class="button icon red"confirm-link='Are you sure you want to delete this voiceover ?'><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock %}

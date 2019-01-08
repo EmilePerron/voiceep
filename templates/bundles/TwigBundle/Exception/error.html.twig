@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+    <section id="error">
+        <div class="container text-center">
+            <h1 class="text-white">
+                <div class="bigger">Uh oh. 😳</div>
+                We messed up!
+            </h1>
+            <div class="page-subtitle">
+                Apologies - it seems like we made a mistake. 😅<br>
+                The issue has been reported automatically, and will be fixed as soon as possible.<br>
+            </div>
+            <div>
+                <a href="{{ path('home') }}" class="button large white">
+                    <i class="fas fa-home"></i>
+                    Return to the homepage
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

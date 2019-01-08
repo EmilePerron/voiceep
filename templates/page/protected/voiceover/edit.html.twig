@@ -1,0 +1,74 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}{{ voiceover.id ? 'Edit' : 'Create' }} a voiceover{% endblock %}
+
+{% block app_body %}
+    <div class="card">
+        <div class="form-wrapper">
+            {% if success %}
+                <div class="msg success">The voiceover has been saved.</div>
+            {% endif %}
+
+            {% form_theme form 'form/form_errors.html.twig' %}
+            {{ form_start(form) }}
+                <div class="field full errors">{{ form_errors(form) | trim }}</div>
+
+                <div class="field full entry">
+                    {{ form_errors(form.entry) }}
+                    {{ form_label(form.entry) }}
+                    {{ form_widget(form.entry) }}
+                    {{ form_help(form.entry) }}
+                </div>
+
+                <div class="field full type">
+                    {{ form_errors(form.type) }}
+                    {{ form_label(form.type) }}
+                    {{ form_widget(form.type) }}
+                    {{ form_help(form.type) }}
+                </div>
+
+                <div class="field full language">
+                    {{ form_errors(form.languageCode) }}
+                    {{ form_label(form.languageCode) }}
+                    {{ form_widget(form.languageCode) }}
+                    {{ form_help(form.languageCode) }}
+                </div>
+
+                <div class="field full file {{ voiceover.type != 'manual' ? 'hide' : '' }}">
+                    {{ form_errors(form.file) }}
+                    {{ form_label(form.file) }}
+                    {% if (voiceover.getOption('file_url')) %}
+                        <a href="{{ voiceover.getOption('file_url') }}" target="_blank" class="current-file">
+                            <span>Current file:</span>
+                            {{ voiceover.getOption('file_url') }}
+                        </a>
+                    {% endif %}
+                    {{ form_widget(form.file) }}
+                    {{ form_help(form.file) }}
+                </div>
+
+                <div class="field full text">
+                    {{ form_errors(form.text) }}
+                    {{ form_label(form.text) }}
+                    {{ form_widget(form.text) }}
+                    {{ form_help(form.text) }}
+                </div>
+
+                <div class="field full">
+                    {{ form_widget(form.create) }}
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <script>
+        $(".field.type select").change(function(){
+            let userProvidedFile = ['manual'].indexOf(this.value) != -1;
+
+        	$(".field.file").toggleClass('hide', !userProvidedFile)
+                            .find('label').toggleClass('required', userProvidedFile);
+        	$(".field.text").toggleClass('hide', userProvidedFile);
+        });
+    </script>
+{% endblock %}

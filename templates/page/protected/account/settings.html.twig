@@ -1,0 +1,39 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Account settings{% endblock %}
+
+{% block app_body %}
+    <div class="card">
+        <div class="form-wrapper">
+            {% if success %}
+                <div class="msg success">Your account settings have been saved.</div>
+            {% endif %}
+
+            {% form_theme form 'form/form_errors.html.twig' %}
+            {{ form_start(form) }}
+                <div class="field full errors">{{ form_errors(form) }}</div>
+
+                <div class="field full">
+                    {{ form_errors(form.email) }}
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                    {{ form_help(form.email) }}
+                </div>
+
+                <div class="field full repeated">
+                    {{ form_errors(form.newPassword) }}
+                    {{ form_widget(form.newPassword) }}
+                    {{ form_help(form.newPassword) }}
+                </div>
+
+                <div class="field full flex-space-between-top">
+                    {{ form_widget(form.save) }}
+                    <a href="{{ path('app_account_delete', { user_id: app.user.id }) }}"
+                        class="button large red"
+                        confirm-link="<div class='modal-title'>Are you sure you want to delete your account?</div> This is irreversible, and cannot be undone.">Delete my account</a>
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

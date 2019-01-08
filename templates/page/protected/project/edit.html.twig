@@ -1,0 +1,54 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Project settings{% endblock %}
+
+{% block app_body %}
+    <div class="card">
+        <div class="form-wrapper">
+            {% if success %}
+                <div class="msg success">The project settings has been saved.</div>
+            {% endif %}
+
+            {% form_theme form 'form/form_errors.html.twig' 'form/form_help.html.twig' %}
+            {{ form_start(form) }}
+                <div class="field full errors">{{ form_errors(form) | trim }}</div>
+
+                <div class="field full">
+                    {{ form_errors(form.title) }}
+                    {{ form_label(form.title) }}
+                    {{ form_help(form.title) }}
+                    {{ form_widget(form.title) }}
+                </div>
+
+                <div class="field full">
+                    {{ form_errors(form.defaultLanguageCode) }}
+                    {{ form_label(form.defaultLanguageCode) }}
+                    {{ form_help(form.defaultLanguageCode) }}
+                    {{ form_widget(form.defaultLanguageCode) }}
+                </div>
+
+                <div class="field full">
+                    {{ form_errors(form.defaultContentSelector) }}
+                    {{ form_label(form.defaultContentSelector) }}
+                    {{ form_help(form.defaultContentSelector) }}
+                    {{ form_widget(form.defaultContentSelector) }}
+                </div>
+
+                <div class="field full">
+                    {{ form_errors(form.allowedDomains) }}
+                    {{ form_label(form.allowedDomains) }}
+                    {{ form_help(form.allowedDomains) }}
+                    {{ form_widget(form.allowedDomains) }}
+                </div>
+
+                <div class="field full flex-space-between-top">
+                    {{ form_widget(form.save) }}
+                    <a href="{{ path('app_project_delete', { project_id: project.id }) }}"
+                        class="button large red"
+                        confirm-link="Are you sure you want to delete the project {{ ('"' ~ project.title ~ '"') | escape }} ?">Delete project</a>
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

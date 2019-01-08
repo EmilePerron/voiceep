@@ -1,0 +1,91 @@
+body.app #wrapper { padding-bottom: 0; }
+body.app footer { position: static; }
+
+#app-wrapper { display: flex; width: 100%; justify-content: stretch; align-items: stretch; align-content: stretch; height: calc(100vh - 146px); background-color: white; position: relative; overflow: hidden; }
+#sidebar { display: block; width: 300px; border-right: 1px solid #f1f1f1; box-shadow: 0 15px 30px #f1f1f1; position: relative; }
+#sidebar .project-switcher { margin: 15px; color: #999; }
+#sidebar nav { padding-top: 12px; border-top: 1px solid #f1f1f1; }
+#sidebar nav a { display: block; padding: 12px 15px; color: #999; transition: all .25s ease; }
+#sidebar nav a i { display: inline-block; width: 40px; font-size: 22px; line-height: 1em; text-align: center; vertical-align: middle; }
+#sidebar nav a:not(.current):hover { color: #333; background-color: #f9f9f9; }
+#sidebar nav a.current { font-weight: 500; color: #7642ca; background-color: rgba(118, 66, 202, 0.05); }
+#sidebar nav.bottom-links {     position: absolute; bottom: 0; left: 0; width: 100%; padding-bottom: 12px; }
+#sidebar .sidebar-toggle { display: none; }
+
+#app { flex: 1; }
+#app-header { display: flex; width: 100%; height: 76px; padding: 15px; justify-content: space-between; align-items: center; background-color: white; border-bottom: 1px solid #f1f1f1; box-shadow: 15px 0 30px #f1f1f1; position: relative; }
+#app-header .title { font-size: 1.75rem; font-weight: 500; }
+#app-header .back { position: absolute; top: 6px; left: 15px; font-size: 12px; color: #aaa; }
+#app-header .back::before { content: '\f177'; font-family: "Font Awesome 5 Pro"; display: inline-block; margin-right: 4px; transition: transform .25s ease; }
+#app-header .back:hover { color: #555; }
+#app-header .back:hover::before { transform: translateX(-5px); }
+#app-header .sidebar-toggle { position: absolute; top: 6px; left: 15px; font-size: 12px; color: #aaa; }
+#app-header .sidebar-toggle::before { content: '\f0c9'; font-family: "Font Awesome 5 Pro"; display: inline-block; margin-right: 4px; transition: transform .25s ease; }
+#app-header .actions > * { display: inline-block; vertical-align: middle; }
+#app-header .actions > .search { margin-left: 10px; }
+#app-header .search { width: 300px; position: relative; }
+#app-header .search input { padding-right: 40px; }
+#app-header .search .button { position: absolute; top: 0; bottom: 0; right: 10px; display: flex; width: 25px; height: 25px; padding: 0; margin: auto; justify-content: center; align-items: center; align-content: center; opacity: .1; transition: all .15s ease; }
+#app-header .search:hover .button { opacity: 1; }
+#app-content { height: calc(100vh - 76px - 109px); padding: 15px; overflow: auto; }
+
+.text-array-inputs input + input { margin-top: 5px; }
+
+body.app .card { box-shadow: 0 5px 30px #f1f1f1; }
+body.app .card + .card { margin-top: 15px; }
+body.app [class*='flex-'] > .card + .card { margin-top: 0; margin-left: 15px; }
+body.app h2 { margin-bottom: 10px; font-size: 1.5rem; font-weight: 600; }
+
+body.app .field.file .current-file { display: inline-block; padding: 5px 10px; margin-bottom: 5px; font-size: 1rem; line-height: 1.5em; color: #7642ca; background-color: #f8f6fc; border-radius: 3px; }
+body.app .field.file .current-file::before { content: '\f15b'; font-family: "Font Awesome 5 Pro"; margin-right: 4px; }
+body.app .field.file .current-file span { font-weight: 500; }
+body.app .field.file .current-file:hover { background-color: #f5f5f5; color: #555; }
+
+/* Listings */
+.listing .url { width: 50%; }
+.listing .date { width: 145px; }
+.listing .status { width: 100px; }
+
+/* Statuses */
+.status.empty { color: #999; }
+.status.scheduled { color: #4fc3f7; }
+.status.inprogress { color: #ecb100; }
+.status.completed { color: #8BC34A; }
+.status.failed { color: #F44336; }
+
+/* Recording */
+.recording-wrapper { display: flex; padding: 10px; justify-content: flex-start; align-items: center; align-content: center; border: 2px solid #f1f1f1; border-radius: 2px; }
+.recording-wrapper .buttons { margin-right: 10px; }
+.recording-wrapper .buttons button { display: flex; width: 50px; height: 50px; padding: 0; margin: 0; justify-content: center; align-content: center; align-items: center; background-color: #f1f1f1; background-image: none; }
+.recording-wrapper .buttons button i { font-size: 30px; }
+.recording-wrapper .buttons button.record { color: #F44336; }
+.recording-wrapper .buttons button.record:hover i { opacity: .75; }
+.recording-wrapper .buttons button.stop { color: #999; }
+.recording-wrapper .buttons button.stop i { font-size: 24px; }
+.recording-wrapper .buttons button.stop:hover { filter: none; color: #555; }
+.recording-wrapper .time { font-size: 1.5rem; font-weight: 300; color: #555; }
+.recording-playback > * { vertical-align: middle; }
+.recording-playback audio { margin-right: 10px; }
+.recording-playback:not(:empty) + .recording-wrapper { display: none; }
+.timer-overlay { position: fixed; top: 0; left: 0; display: flex; width: 100%; height: 100%; justify-content: center; align-items: center; align-content: center; font-size: 72px; font-weight: 600; line-height: 1.1em; color: white; text-align: center; background-color: rgba(0,0,0,.75); z-index: 1000; }
+
+
+@media (max-width: 991px) {
+    .column { margin-bottom: 15px; }
+
+    .field { width: 100%; }
+    .field.full.repeated > div { display: block; }
+    .field.full.repeated > div > div:not(:last-child) { margin-right: 0; margin-bottom: 20px; }
+
+    #sidebar { position: fixed; top: 109px; left: -100%; display: block; width: 100%; height: calc(100% - 109px); background-color: white; border: none; overflow: auto; z-index: 50; transition: all .5s ease; }
+    #sidebar nav.bottom-links { position: static; margin-top: 15px; }
+    #sidebar .project-switcher { width: calc(100% - 100px); }
+    #sidebar .sidebar-toggle { display: block; position: absolute; top: 15px; right: 25px; font-size: 44px; line-height: 1em; color: #ccc; }
+    #sidebar.open { left: 0; }
+    #app-wrapper { display: block; }
+    #app-content { height: auto; }
+    body.scrolling #sidebar { top: 44px; height: calc(100% - 44px); }
+
+    #app-header .title { font-size: 1.5rem; line-height: 1em; }
+    #app-header .search { display: none; }
+}

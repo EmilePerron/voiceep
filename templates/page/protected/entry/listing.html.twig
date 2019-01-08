@@ -1,0 +1,31 @@
+{% extends 'page/protected/base.html.twig' %}
+
+{% block title %}Entries{% endblock %}
+
+{% block actions %}
+    <a href="{{ path('app_entry_create') }}" class="button icon"><i class="fas fa-plus"></i></a>
+{% endblock %}
+
+{% block app_body %}
+    {% spaceless %}
+        <div class="listing entries">
+            {% for entry in project.entries %}
+                {% set status = entry.latestVoiceover ? entry.latestVoiceover.status : 'empty' %}
+                <div class="card entry flex-space-between-center spaced" data-search="url:{{ entry.url | escape }} status:{{ status }}">
+                    <div class="url">
+                        <div class="name">{{ entry.title ? (entry.title | escape) : (entry.url | escape) }}</div>
+                        {% if entry.title %}
+                            <div><a href="//{{ entry.url | escape }}" target="_blank" class="text-gray smaller">{{ entry.url | escape }}</a></div>
+                        {% endif %}
+                    </div>
+                    <div class="status {{ status | lower }}">{{ status | capitalize }}</div>
+                    <div class="actions text-right">
+                        <a href="{{ path('app_voiceover_record', { 'entry_id': entry.id }) }}" class="button icon record"><i class="fas fa-circle"></i></a>
+                        <a href="{{ path('app_voiceover_listing', { 'q': 'url:' ~ entry.url | escape }) }}" class="button icon" tiny-tooltip="{{ entry.voiceovers | length ?: '' }}"><i class="fas fa-microphone"></i></a>
+                        <a href="{{ path('app_entry_delete', { 'entry_id': entry.id }) }}" class="button icon red" confirm-link='Are you sure you want to delete the following entry: <strong>{{ entry.url | escape }}</strong> ?'><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock %}

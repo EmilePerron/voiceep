@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiceep{% endblock %}
+
+{% block body %}
+    <div class="container small">
+        <div class="form-wrapper card medium">
+            {% if error %}
+                <div class="msg error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form action="{{ path('signin') }}" method="post">
+                <div class="field full">
+                    <label for="username">Email</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                </div>
+
+                <div class="field full">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="_password" />
+                </div>
+
+                <div class="field full">
+                    <button type="submit">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
